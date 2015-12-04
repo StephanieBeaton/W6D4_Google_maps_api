@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <!--
+    normalize.css removes cross-browser differences in defaults, e.g.,
+    differences in how form elements appear between Firefox and IE
+    See: http://necolas.github.com/normalize.css/
+  -->
+  <link rel="stylesheet" href="/stylesheets/normalize.css">
+  <!--
+    application.css is where you put your styles
+  -->
+  <link rel="stylesheet" href="/stylesheets/application.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/javascript/application.js"></script>
+
+  <title>Simple Markers</title>
+</head>
+<body>
+
+  <%= yield %>
+
+    <script>
+
+      var myMarker;
+
+      function toggleBounce() {
+        console.log("inside toggleBounce callback");
+
+        if (myMarker.getAnimation() !== null) {
+          myMarker.setAnimation(null);
+        } else {
+          myMarker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+
+      // The following example creates a marker in Vancouver, Canada using a DROP
+      // animation. Clicking on the marker will toggle the animation between a BOUNCE
+      // animation and no animation.
+
+      function initMap() {
+
+        // Rename the variable myLatlng to theirLatLng and marker to theirMarker.
+
+        var theirLatLng = {lat: -25.363, lng: 131.044};
+
+        // Add another LatLng position and marker
+        // (keep the existing one) called myMarker.
+        // Place it somewhere in Vancouver.
+
+        //  Vancouver  49.2827° N, 123.1207° W
+
+        var vancouverLatLng = {lat: 49.283, lng: -123.121};
+
+        console.log("vancouverLatLng = ", vancouverLatLng);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: vancouverLatLng
+        });
+
+        console.log("map = ", map);
+
+        myMarker = new google.maps.Marker({
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: vancouverLatLng
+        });
+
+        console.log("myMarker =", myMarker);
+
+        console.log("adding listener toggleBounce");
+        myMarker.addListener('click', toggleBounce);
+
+        // Make the new marker drop into the window (animation)
+        // and also draggable (you can grab it, drag it around and then drop it somewhere).
+      }
+
+
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL9HLiaAUA6TP_86eu4x0wbHps_oGXLHE&signed_in=true&callback=initMap">
+    </script>
+
+  </body>
+</html>
+
+
+
+
