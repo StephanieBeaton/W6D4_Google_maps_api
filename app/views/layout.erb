@@ -64,6 +64,12 @@
 
         console.log("map = ", map);
 
+        theirMarker = new google.maps.Marker({
+          map: map,
+          position: theirLatLng
+        });
+
+
         myMarker = new google.maps.Marker({
           map: map,
           draggable: true,
